@@ -8,9 +8,9 @@ biped:
   left_ankle_position_controller:
     type: effort_controllers/JointPositionController
     joint: left_ankle
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 100.0, i: 0.01, d: 1.0}
 
   left_knee_position_controller:
     type: effort_controllers/JointPositionController
     joint: left_knee
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 100.0, i: 0.01, d: 1.0}
