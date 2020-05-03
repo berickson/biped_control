@@ -15,4 +15,6 @@
     <remap from="/joint_states" to="/biped/joint_states" />
   </node>
 
+  <node pkg="biped_control" name="mover" type="move.py" output="log" respawn="false"/>
+
 </launch>
