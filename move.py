@@ -8,7 +8,7 @@ from std_msgs.msg import Float64
 from ik import get_joint_angles_for_position
 
 def square_curve(elapsed, cx, rx, cy, ry):
-    (f, n) = math.modf(elapsed)
+    (f, n) = math.modf(elapsed/4.)
     side = n % 4
 
     if(side==0):
@@ -73,7 +73,12 @@ def main():
         rate.sleep()
 
 if __name__ == '__main__':
-    try:
-        main()
-    except rospy.ROSInterruptException:
-        pass
+    while True:
+        try:
+            rospy.loginfo('starting move.py')
+            main()
+        except rospy.ROSInterruptException:
+            rospy.loginfo('ROSInterruptException caught in  move.py')
+            continue
+        break
+    rospy.loginfo('exiting move.py')
