@@ -42,6 +42,7 @@ def ellipse_curve(elapsed, cx, rx, cy, ry):
 
 def main():
     start = time.time()
+    left_hip_controller = rospy.Publisher('/biped/left_hip_position_controller/command', Float64, queue_size=1)
     left_knee_controller = rospy.Publisher('/biped/left_knee_position_controller/command', Float64, queue_size=1)
     left_ankle_controller = rospy.Publisher('/biped/left_ankle_position_controller/command', Float64, queue_size=1)
     rospy.init_node('talker', anonymous=True)
@@ -55,10 +56,6 @@ def main():
     while not rospy.is_shutdown():
         elapsed = time.time()-start
 
-
-        #left_knee_controller.publish(math.sin(elapsed))
-        #left_ankle_controller.publish(-math.sin(elapsed)/3)
-
         # draw a circle in the air
         #(x,y) = ellipse_curve(elapsed, cx, rx, cy, ry)
 
@@ -67,6 +64,7 @@ def main():
 
 
         (a,b) = get_joint_angles_for_position(x, -y, 0.2, 0.2, trace=False)
+        left_hip_controller.publish(-(a+b))
         left_ankle_controller.publish(a)
         left_knee_controller.publish(b)
 
